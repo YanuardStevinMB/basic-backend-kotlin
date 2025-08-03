@@ -7,37 +7,34 @@ import jakarta.persistence.Table
 import java.time.LocalDate
 
 @Entity
-@Table(name = "person")
 class Person(
+    @field:Column(name = "first_name", length = 50, nullable = false)
+    open var firstName: String = "",
 
-    @Column(name = "first_name", length = 50, nullable = false)
-    var firstName: String,
+    @field:Column(name = "last_name", length = 50, nullable = false)
+    open var lastName: String = "",
 
-    @Column(name = "last_name", length = 50, nullable = false)
-    var lastName: String,
+    @field:Column(name = "email", length = 50, nullable = false, unique = true)
+    open var email: String = "",
 
-    @Column(name = "email", length = 50, nullable = false, unique = true)
-    var email: String,
+    @field:Column(name = "phone", length = 15, nullable = false)
+    open var phone: String = "",
 
-    @Column(name = "phone", length = 15, nullable = false)
-    var phone: String,
+    @field:Column(name = "date_of_birth", nullable = false)
+    open var dateOfBirth: LocalDate = LocalDate.now(),
 
-    @Column(name = "date_of_birth", nullable = false)
-    var dateOfBirth: LocalDate,
+    @field:Column(name = "gender", length = 10, nullable = false)
+    open var gender: String = "",
 
-    @Column(name = "gender", length = 10, nullable = false)
-    var gender: String,
+    @field:Column(name = "address", length = 100, nullable = false)
+    open var address: String = "",
 
-    @Column(name = "address", length = 100, nullable = false)
-    var address: String,
+    @field:Column(name = "type_document", length = 50, nullable = false)
+    open var typeDocument: String = "",
 
-    @Column(name = "type_document", length = 50, nullable = false)
-    var typeDocument: String,
+    @field:Column(name = "document", length = 10, nullable = false, unique = true)
+    open var document: String = "",
 
-    @Column(name = "document", length = 10, nullable = false, unique = true)
-    var document: String,
-
-    @Column(name = "ubication", length = 100, nullable = false, unique = true)
-    var ubication: String
-
+    @field:Column(name = "ubication", length = 100, nullable = false, unique = true)
+    open var ubication: String = ""
 ) : ABaseEntity()

@@ -21,15 +21,15 @@ import org.springframework.web.bind.annotation.RequestBody
     protected val entityName: String
 ) {
 
-    @GetMapping
-    fun findByStateTrue(): ResponseEntity<ApiResponseDto<List<T>>> {
-        return try {
-            ResponseEntity.ok(ApiResponseDto("Datos obtenidos", service.findByStateTrue(), true))
-        } catch (e: Exception) {
-            ResponseEntity.internalServerError()
-                .body(ApiResponseDto(e.message ?: "Error desconocido", null, false))
-        }
-    }
+//    @GetMapping
+//    fun findByStateTrue(): ResponseEntity<ApiResponseDto<List<T>>> {
+//        return try {
+//            ResponseEntity.ok(ApiResponseDto("Datos obtenidos", service.findByStateTrue(), true))
+//        } catch (e: Exception) {
+//            ResponseEntity.internalServerError()
+//                .body(ApiResponseDto(e.message ?: "Error desconocido", null, false))
+//        }
+//    }
 
     @GetMapping("{id}")
     fun show(@PathVariable id: Long): ResponseEntity<ApiResponseDto<T?>> {

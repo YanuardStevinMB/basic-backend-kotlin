@@ -17,8 +17,8 @@ interface IBaseService <T: ABaseEntity,D>{
      * @return Una lista de entidades activas.
      * @throws Exception Si ocurre un error durante la recuperación.
      */
-    @Throws(Exception::class)
-    fun findByStateTrue(): List<T>
+//    @Throws(Exception::class)
+//    fun findByStateTrue(): List<T>
 
     /**
      * Recupera una entidad por su ID.

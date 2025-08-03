@@ -1,14 +1,16 @@
 package com.example.demo_Kotlin.service.implement
 
 import com.example.demo_Kotlin.dto.EmployeeDto
+import com.example.demo_Kotlin.dto.PersonDto
 import com.example.demo_Kotlin.entity.parameter.Employee
 import com.example.demo_Kotlin.entity.security.Person
 import com.example.demo_Kotlin.irespository.IBaseRepository
 import com.example.demo_Kotlin.irespository.IEmployeeRepository
 import com.example.demo_Kotlin.service.`interface`.IEmployeeService
 import com.example.demo_Kotlin.utilitis.GenericMapper
+
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
+
 
 @Service
 class EmployeeService(
@@ -21,43 +23,71 @@ class EmployeeService(
         return employeeRepository;
     }
 
+//
+//    override fun save(dto: EmployeeDto): EmployeeDto {
+//        return try {
+//            // Eliminar ID si estás creando un nuevo registro
+//            val dtoToSave = dto.copy(id = null)
+//
+//            // Cargar la entidad relacionada (Person)
+//            val person = personService.findById(dtoToSave.personDto.id!!)
+//                .orElseThrow { Exception("Persona no encontrada con ID ${dtoToSave.personDto.id}") }
+//
+//            // Convertir DTO a Entity
+//            val entity = dtoToSave.toEntity(person)
+//
+//            // Guardar en la base de datos
+//            val savedEntity = getRepository().save(entity)
+//
+//            // Retornar como DTO
+//            savedEntity.toDto()
+//
+//        } catch (e: Exception) {
+//            throw Exception("Error al guardar la entidad: ${e.message}", e)
+//        }
+//    }
+//
+//    fun EmployeeDto.toEntity(person: Person): Employee {
+//        return Employee(
+//            code = this.code,
+//            position = this.position,
+//            person = person
+//        ).apply {
+//            id = this@toEntity.id
+//            state = this@toEntity.state
+//            createdAt = this@toEntity.createdAt
+//            updatedAt = this@toEntity.updatedAt
+//            deletedAt = this@toEntity.deletedAt
+//        }
+//    }
+//    fun Employee.toDto(): EmployeeDto {
+//        return EmployeeDto(
+//            id = this.id,
+//            code = this.code,
+//            position = this.position,
+//            state = this.state,
+//            createdAt = this.createdAt,
+//            updatedAt = this.updatedAt,
+//            deletedAt = this.deletedAt,
+//            personDto = PersonDto (
+//                id = this.person.id,
+//                firstName = this.person.firstName,
+//                lastName = this.person.lastName,
+//                email = this.person.email,
+//                phone = this.person.phone,
+//                dateOfBirth = this.person.dateOfBirth,
+//                gender = this.person.gender,
+//                address = this.person.address,
+//                typeDocument = this.person.typeDocument,
+//                document = this.person.document,
+//                ubication = this.person.ubication,
+//                active = this.person.state
+//            )
+//        )
+//    }
+//
 
-    override fun save(dto: EmployeeDto): EmployeeDto {
-        return try {
-            // Asegúrate de que no tenga ID si estás creando uno nuevo
-            dto.id = null
 
-            // Mapear DTO a entidad
-            val entity = mapper.mapToEntity(dto, Employee::class.java).apply {
-                createdAt = LocalDateTime.now()
-                createdBy = 1L
-
-                // Asociar persona existente
-                val personId = dto.personId ?: throw IllegalArgumentException("El ID de la persona no puede ser null")
-                person = personService.findById(personId)
-                    .orElseThrow { Exception("Persona no encontrada con ID: $personId") }
-            }
-
-            // Guardar en DB
-            val savedEntity = getRepository().save(entity)
-
-
-            // Mapear manualmente el resultado a DTO (sin relaciones complejas)
-            EmployeeDto(
-                id = savedEntity.id,
-                code = savedEntity.code,
-                state = savedEntity.state,
-                position = savedEntity.position,
-                createdAt = savedEntity.createdAt,
-                updatedAt = savedEntity.updatedAt,
-                deletedAt = savedEntity.deletedAt,
-                personId = savedEntity.person.id!!
-            )
-
-        } catch (e: Exception) {
-            throw Exception("Error al guardar la entidad: ${e.message}", e)
-        }
-    }
 
 
 
